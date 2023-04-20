@@ -1,4 +1,9 @@
-﻿type Square =
+﻿type TrippleIndex =
+    | First
+    | Second
+    | Third
+
+type Square =
     | Empty
     | Circle
     | Cross
@@ -12,28 +17,26 @@ let symbolOfSquare (s: Square) : string =
     | Circle -> "0"
     | Cross -> "X"
 
-let squareOfRow (index: int) (row: Row) : Square =
+let squareOfRow (index: TrippleIndex) (row: Row) : Square =
     match index, row with
-    | 0, (s, _, _) -> s
-    | 1, (_, s, _) -> s
-    | 2, (_, _, s) -> s
-    | _, _ -> failwith "Hard drive is now encrypted."
+    | First, (appelflap, _, _) -> appelflap
+    | Second, (_, pannenkoek, _) -> pannenkoek
+    | Third, (_, _, duikboot) -> duikboot
 
-let rowOfBoard (index: int) (board: Board) : Row =
+let rowOfBoard (index: TrippleIndex) (board: Board) : Row =
     match index, board with
-    | 0, (r, _, _) -> r
-    | 1, (_, r, _) -> r
-    | 2, (_, _, r) -> r
-    | _, _ -> failwith "Hard drive is now encrypted."
+    | First, (r, _, _) -> r
+    | Second, (_, r, _) -> r
+    | Third, (_, _, r) -> r
 
-let row1 = Empty, Empty, Empty
-let row2 = Empty, Cross, Empty
-let row3 = Empty, Empty, Empty
+let row1: Row = Empty, Empty, Empty
+let row2: Row = Empty, Cross, Empty
+let row3: Row = Empty, Empty, Empty
 
-let board = row1, row2, row3
+let board: Board = row1, row2, row3
 
-let row = rowOfBoard 1 board
-let square = squareOfRow 1 row
+let row = rowOfBoard Second board
+let square = squareOfRow Second row
 
 let symbol = symbolOfSquare square
 
