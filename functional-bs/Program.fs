@@ -21,16 +21,21 @@ type Square =
     | Circle
     | Cross
 
+let firstParamAlwaysNumOne (_, b, c) =
+    (1, b, c)
+    
+printfn $"{firstParamAlwaysNumOne (Cross, Circle, Empty)}"
+
 type Row = Square * Square * Square
 type Board = Row * Row * Row
 
-let elementOfTriple (i: TrippleIndex) (tr: 'a * 'a * 'a): 'a =
+let elementOfTriple i tr =
     match i, tr with
     | First,  (r, _, _) -> r
     | Second, (_, r, _) -> r
     | Third,  (_, _, r) -> r
 
-let symbolOfSquare (s: Square) : string = // great method, wanna bake a potato?
+let symbolOfSquare = fun s -> // great method, wanna bake a potato?
     match s with
     | Empty -> " "
     | Circle -> "0"
@@ -48,14 +53,14 @@ let symbolOfSquare (s: Square) : string = // great method, wanna bake a potato?
 //     | Second, (_, r, _) -> r
 //     | Third,  (_, _, r) -> r
     
-let stringOfRow (r: Row) : string =
+let stringOfRow r =
     $"| {symbolOfSquare (elementOfTriple First r)} | {symbolOfSquare (elementOfTriple Second r)} | {symbolOfSquare (elementOfTriple Third r)} |"
     
-let stringOfBoard (b: Board): string =
+let stringOfBoard b =
     $"-------------\n{stringOfRow ( elementOfTriple First b )}\n{stringOfRow ( elementOfTriple Second b )}\n{stringOfRow ( elementOfTriple Third b )}\n-------------"
     
 // T and U are the old squares, and we replace it with the new square named S
-let updateSquareOfRow (i: TrippleIndex) (s: Square) (r: Row): Row =
+let updateSquareOfRow i s r =
     match i, r with
     | First,  (_, t, u) -> (s, t, u)
     | Second, (t, _, u) -> (t, s, u)
