@@ -62,9 +62,9 @@ let stringOfBoard b =
 // T and U are the old squares, and we replace it with the new square named S
 let updateSquareOfRow i s r =
     match i, r with
-    | First,  (_, t, u) -> (s, t, u)
-    | Second, (t, _, u) -> (t, s, u)
-    | Third,  (t, u, _) -> (t, u, s)
+    | First,  (_, snd, trd) -> (s, snd, trd)
+    | Second, (fst, _, trd) -> (fst, s, trd)
+    | Third,  (fst, snd, _) -> (fst, snd, s)
 
 let board: Board =
     (Circle, Cross, Circle),
